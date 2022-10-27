@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+And+White+Picture&family=Press+Start+2P&display=swap');
+
 * {
 	margin: 0;
 	padding: 0;
@@ -16,10 +18,15 @@ body {
 }
 h1 {
 	margin-bottom: 20px;
+	font-family: 'Press Start 2P', cursive;
+	text-shadow: #fc0 1px 0 20px, #ff9d00 1px 0 20px;
 }
 #score {
-	font-size: 40px;
+	font-size: 20px;
 	margin-bottom: 20px;
+	text-transform: uppercase;
+	font-family: 'Press Start 2P', cursive;
+
 }
 .fence {
 	background-image: url(./src/fence.webp);
