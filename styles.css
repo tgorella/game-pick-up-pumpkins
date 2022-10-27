@@ -1,0 +1,131 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #1e1f34;
+	color: #fff;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+}
+h1 {
+	margin-bottom: 20px;
+}
+#score {
+	font-size: 40px;
+	margin-bottom: 20px;
+}
+.fence {
+	background-image: url(./src/fence.webp);
+	width: 1200px;
+	height: 60px;
+}
+.playground-container {
+	width: 1224px;
+	height: 688px;
+	display: flex;
+
+}
+.fence-side {
+	width: 12px;
+	height: 100%;
+background-image: url(./src/fence-side.webp);
+
+}
+.fence-bottom {
+background-image: url(./src/fence-bottom.webp);
+height: 28px;
+}
+
+.playground {
+min-width: 1200px;
+height: 600px;
+background-color: #3d4357;
+position: relative;
+background-image: url(./src/ground.webp);
+}
+
+.ghost {
+	position: absolute;
+	/* background-color: blue; */
+	width: 70px;
+	height: 90px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
+}
+.ghost-image {
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.pumpkin {
+	position: absolute;
+	width: 60px;
+	height: 60px;
+background-image: url(./src/pumpkin1.webp);
+background-size: contain;
+background-repeat: no-repeat;
+background-position: bottom center;
+z-index: 50;
+
+}
+.stone {
+	position: absolute;
+	width: 124px;
+	height: 40px;
+	/* background-image: url(./src/stone1.webp); */
+/* background-size: 100%; */
+background-repeat: no-repeat;
+background-position: bottom center;
+}
+.dead {
+}
+
+.ghost {
+  animation: soar infinite ease 3s;
+}
+
+.ghost-shadow {
+  background-color: #282c3a;
+  height: 15px;
+  width: 60px;
+  margin-top: 8px;
+  border-radius: 50%;
+  animation: cast-shadow infinite ease 3s;
+	opacity: 0.7;
+}
+
+@keyframes soar {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -30%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes cast-shadow {
+  0% {
+    width: 60px;
+  }
+  50% {
+    width: 40px;
+  }
+  100% {
+    width: 60px;
+  }
+}
+
