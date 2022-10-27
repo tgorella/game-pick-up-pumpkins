@@ -21,6 +21,8 @@ h1 {
 	margin-bottom: 20px;
 	font-family: 'Press Start 2P', cursive;
 	text-shadow: #fc0 1px 0 20px, #ff9d00 1px 0 20px;
+	text-align: center;
+	line-height: 1.5;
 }
 
 h2 {
@@ -49,8 +51,12 @@ section {
 }
 
 .instructions {
-	display: grid;
-	grid-template-column: ; 
+	font-size: 22px;
+	max-width: 600px;
+	margin-bottom: 20px;
+}
+.instructions div {
+	margin-bottom: 20px;
 }
 .play-btn {
 	font-size: 30px;
