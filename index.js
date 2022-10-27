@@ -205,5 +205,24 @@ function stopSearching() {
 
 function gameOver() {
 	document.removeEventListener('keyup',setDirection)
-	console.log('game over');
+	setTimeout(stopPlay, 4000);
+}
+
+function startPlay() {
+	const slide1 = document.querySelector('#welcome');
+	slide1.classList.add('play')
+}
+
+function stopPlay() {
+	const slide3 = document.querySelector('#game-over');
+	slide3.style.top = '0px';
+	const totalScore = document.createElement('h3');
+	totalScore.innerText = 'Ваш счет: ' + score;
+	const replayButton = document.createElement('button');
+	replayButton.className="play-btn";
+	replayButton.innerText = 'Начать сначала';
+	replayButton.addEventListener('click', (event) => {
+		window.location.reload();
+	})
+	slide3.append(totalScore, replayButton);
 }
