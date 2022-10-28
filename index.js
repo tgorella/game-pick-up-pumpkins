@@ -1,11 +1,19 @@
+
+// Pumpkins Game imports
 import * as Playground from './src/modules/Playground.js';
 import Pumpkin from './src/modules/Pumpkin.js';
 import Hero from './src/modules/Hero.js';
 import Stones from './src/modules/Stones.js';
-import * as Const from './src/modules/Const.js';
 import startPlay from './src/modules/utils/StartPlay.js';
 import stopPlay from './src/modules/utils/StopPlay.js';
-import renderPickUpPumpkins from './src/modules/PupModuleHtml.js';
+import renderPickUpPumpkins from './src/modules/renderPickUpPumpkins.js';
+import gameOver from './src/modules/utils/GameOver.js';
+import renderScore from './src/modules/utils/RenderScore.js';
+
+// pumpkins game code start
+
+let score = 0;
+let isFinded = false;
 
 renderPickUpPumpkins();
 
@@ -14,14 +22,7 @@ startPlayBtn.addEventListener('click', startPlay);
 const gameScreenContainer = document.querySelector('#game');
 gameScreenContainer.append(Playground.gameScreenHTML());
 
-let score = 0;
-let isFinded = false;
-renderScore();
-
-function renderScore() {
-	const scoreTable = document.querySelector('#score');
-	scoreTable.innerText = 'Ваш счет: ' + score;
-}
+renderScore('#score', score);
 
 for (let i=1; i < 40; i++) {
 const stone = new Stones;
@@ -64,12 +65,12 @@ function findPumpkin() {
 		isFinded = true;
 		ghost.increaseSpeed();
 		stopSearching();
-		renderScore();
+		renderScore('#score', score);
 	}
 	
 	if (ghost.currentPositionX() < -60 || ghost.currentPositionY() < 0 || ghost.currentPositionX() > 510 || ghost.currentPositionY() > 1160) {
 		ghost.dead();
-		gameOver();
+		gameOver(setDirection, stopPlay, score);
 		clearInterval(searchPumpkin);
 		}
 }
@@ -84,8 +85,5 @@ function stopSearching() {
 		pumpkin.render();
 	}
 }
+// pumpkins game code end
 
-function gameOver() {
-	document.removeEventListener('keyup',setDirection)
-	setTimeout(stopPlay(score), 4000);
-}

@@ -1,3 +1,5 @@
+
+
 export function gameScreenHTML() {
 const scoreTable = document.createElement('div');
 scoreTable.id='score';
@@ -24,3 +26,5 @@ playgroundContainer.append(fenceSide1, playgroundMiddleSection, fenceSide);
 gameScreen.append(screenTitle, scoreTable, playgroundContainer);
 return gameScreen;
 }
+
+
