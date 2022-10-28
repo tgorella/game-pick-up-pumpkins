@@ -1,146 +1,29 @@
-const playground = document.createElement('div');
-playground.className = 'playground';
-const fenceBottom = document.createElement('div');
-fenceBottom.className = 'fence-bottom';
-const playgroundContainer = document.querySelector('#playground');
-playgroundContainer.append(playground, fenceBottom);
+import * as Playground from './src/modules/Playground.js';
+import Pumpkin from './src/modules/Pumpkin.js';
+import Hero from './src/modules/Hero.js';
+import Stones from './src/modules/Stones.js';
+import * as Const from './src/modules/Const.js';
+import startPlay from './src/modules/utils/startPlay.js';
+import stopPlay from './src/modules/utils/StopPlay.js';
+import renderPickUpPumpkins from './src/modules/PupModuleHtml.js';
+
+renderPickUpPumpkins();
+
+const startPlayBtn = document.querySelector('#start-play-btn');
+startPlayBtn.addEventListener('click', startPlay);
+const gameScreenContainer = document.querySelector('#game');
+gameScreenContainer.append(Playground.gameScreenHTML());
+
 let score = 0;
 let isFinded = false;
-const scoreTable = document.createElement('div');
-const scoreContainer = document.querySelector("#score");
-scoreContainer.append(scoreTable);
-
-
-function renderScore() {
-scoreTable.innerText = 'Ваш счет: ' + score;
-}
-
 renderScore();
 
-class Pumpkin {
-	constructor() {
-		this.positionX = Math.floor(Math.random() * 540);
-    this.positionY = Math.floor(Math.random() * 1140);
-		this.img = document.createElement('div');
-
-	}
-
-	render(x=this.positionX, y=this.positionY) {
-		this.img.className = 'pumpkin';
-		this.img.style.top = `${this.positionX}px`;
-		this.img.style.left = `${this.positionY}px`;
-		playground.append(this.img);
-	}
-
-	currentPositionX() {
-		return this.positionX;
-	}
-	
-	currentPositionY() {
-		return this.positionY;
-	}
-
-	remove() {
-		this.img.remove();
-	}
+function renderScore() {
+	const scoreTable = document.querySelector('#score');
+	scoreTable.innerText = 'Ваш счет: ' + score;
 }
 
-
-class Hero {
-	constructor() {
-		this.direction = '';
-		this.speed = 200;
-		this.img = document.createElement('div');
-		this.ghost = document.createElement('img');
-		this.ghost.src = './src/ghost-right.webp';
-		this.ghost.className='ghost-image';
-		const shadow = document.createElement('div');
-		shadow.className = 'ghost-shadow';
-		this.img.append(this.ghost, shadow);
-		this.isDead = false;
-		this.positionX = 30;
-		this.positionY = 10;
-		this.currentDirection;
-	}
-
-	
-	render(x=this.positionX, y=this.positionY) {
-		this.img.className = 'ghost';
-		this.img.style.top = `${this.positionX}px`;
-		this.img.style.left = `${this.positionY}px`;
-		playground.append(this.img);
-}
-
-	checkDirection(direction) {
-		this.direction = direction;
-		if (this.direction === 'right') {
-		this.ghost.src = './src/ghost-right.webp';
-			clearInterval(this.currentDirection);
-			this.currentDirection = setInterval(() => {this.move(0,10)}, this.speed);
-		}
-		if (this.direction === 'left') {
-			clearInterval(this.currentDirection);
-			this.ghost.src = './src/ghost-left.webp';
-			this.currentDirection = setInterval(() => {this.move(0,-10)}, this.speed);
-		}
-		if (this.direction === 'down') {
-			clearInterval(this.currentDirection);
-			this.currentDirection = setInterval(() => {this.move(10,0)}, this.speed);
-		}
-		if (this.direction === 'up') {
-			clearInterval(this.currentDirection);
-			this.currentDirection = setInterval(() => {this.move(-10,0)}, this.speed);
-		}
-		
-	}
-	move(x, y) {
-	this.positionX += x;
-	this.positionY += y;
-	this.render()
-	}
-
-	currentPositionX() {
-		return this.positionX;
-	}
-
-	currentPositionY() {
-		return this.positionY;
-	}
-	increaseSpeed() {
-		this.speed = this.speed * 0.9;
-	}
-
-	currentSpeed() {
-		return this.currentSpeed;
-	}
-
-	dead() {
-		clearInterval(this.currentDirection);
-		this.ghost.src = './src/dead.webp';
-		this.img.classList.add('dead');
-	}
-
-}
-
-class Stones {
-	constructor() {
-		this.positionX = Math.floor(Math.random() * 540);
-    this.positionY = Math.floor(Math.random() * 1080);
-		this.stone = document.createElement('div');
-
-	}
-
-	render(x=this.positionX, y=this.positionY) {
-		const num = Math.floor(Math.random() * 5);
-		this.stone.className = 'stone';
-		this.stone.style.backgroundImage = `url('./src/stone${num}.webp')`;
-		this.stone.style.top = `${this.positionX}px`;
-		this.stone.style.left = `${this.positionY}px`;
-		playground.append(this.stone);
-	}
-}
-
-for (i=1; i < 40; i++) {
+for (let i=1; i < 40; i++) {
 const stone = new Stones;
 stone.render();
 }
@@ -174,7 +57,6 @@ function setDirection(event) {
 	}
 }
 
-
 function findPumpkin() {
 	if ((ghost.currentPositionX() >= (pumpkin.currentPositionX()-60) && ghost.currentPositionX() <= (pumpkin.currentPositionX()+60)) && (ghost.currentPositionY() >= (pumpkin.currentPositionY()-60) && ghost.currentPositionY() <= (pumpkin.currentPositionY()+60)) ) {
 		pumpkin.remove();
@@ -184,6 +66,7 @@ function findPumpkin() {
 		stopSearching();
 		renderScore();
 	}
+	
 	if (ghost.currentPositionX() < -60 || ghost.currentPositionY() < 0 || ghost.currentPositionX() > 510 || ghost.currentPositionY() > 1160) {
 		ghost.dead();
 		gameOver();
@@ -200,29 +83,9 @@ function stopSearching() {
 		pumpkin = new Pumpkin;
 		pumpkin.render();
 	}
-
 }
 
 function gameOver() {
 	document.removeEventListener('keyup',setDirection)
-	setTimeout(stopPlay, 4000);
-}
-
-function startPlay() {
-	const slide1 = document.querySelector('#welcome');
-	slide1.classList.add('play')
-}
-
-function stopPlay() {
-	const slide3 = document.querySelector('#game-over');
-	slide3.style.top = '0px';
-	const totalScore = document.createElement('h3');
-	totalScore.innerText = 'Ваш счет: ' + score;
-	const replayButton = document.createElement('button');
-	replayButton.className="play-btn";
-	replayButton.innerText = 'Начать сначала';
-	replayButton.addEventListener('click', (event) => {
-		window.location.reload();
-	})
-	slide3.append(totalScore, replayButton);
+	setTimeout(stopPlay(score), 4000);
 }

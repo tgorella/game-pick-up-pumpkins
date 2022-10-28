@@ -7,6 +7,12 @@
 }
 
 body {
+	color: #fff;
+	width: 100vw;
+	height: 100vh;
+}
+
+#gameContainer {
 	background-color: #1e1f34;
 	color: #fff;
 	display: flex;
@@ -76,7 +82,7 @@ section {
 	margin-bottom: 20px;
 	text-transform: uppercase;
 	font-family: 'Press Start 2P', cursive;
-
+	text-align: center;
 }
 .fence {
 	background-image: url(./src/fence.webp);
