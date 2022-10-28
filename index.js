@@ -3,7 +3,7 @@ import Pumpkin from './src/modules/Pumpkin.js';
 import Hero from './src/modules/Hero.js';
 import Stones from './src/modules/Stones.js';
 import * as Const from './src/modules/Const.js';
-import startPlay from './src/modules/utils/startPlay.js';
+import startPlay from './src/modules/utils/StartPlay.js';
 import stopPlay from './src/modules/utils/StopPlay.js';
 import renderPickUpPumpkins from './src/modules/PupModuleHtml.js';
 
